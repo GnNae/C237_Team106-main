@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pet Search</title>
+  <style>
+    body {
+      font-size: 20px;
+      font-family: Arial, sans-serif;
+      margin: 0; 
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2, h3 {
+      font-size: 28px;
+    }
+
+    b {
+      font-size: 22px;
+    }
+
+    input, button {
+      font-size: 18px;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      justify-content: center;    
+      margin-bottom: 20px;
+    }
+
+    .container img {
+      display: block;
+      margin: 10px auto;
+      max-width: 50%;
+      height: auto;
+    }
+
+    .back-button {
+      font-size: 18px;
+      padding: 8px 15px;
+      background: #007bff;
+      color: white;
+      border-radius: 4px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <h2>Search Pets</h2>
+
+    <form action="/search" method="POST">
+      <input type="text" name="query" placeholder="Enter Pet name" required />
+      <button type="submit">Search</button>
+    </form>
+
+    <h3>Results:</h3>
+
+    <% if (results.length > 0) { %>
+      <div class="container">
+        <br>
+        <div><h2>Pet Details:</h2></div>
+        <br>
+
+        <% results.forEach((result, index) => { %>
+          <div>
+            <h2><b>No. <%= index + 1 %> Match Result</b></h2>
+            <p><b>Pet Name:</b><br> <%= result.name %></p>
+            <p><b>Price:</b><br> $<%= result.price %></p>
+            <p><b>Pet Image:</b><br> <img src="<%= result.image %>" width="1000px"></p>
+            <p><b>Breed:</b><br> <%= result.breed %></p>
+            <hr>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <p>No Pet Name found.</p>
+    <% } %>
+
+    <a href="/purchase" class="back-button">Back</a>
+
+  </div>
+
+</body>
+</html>

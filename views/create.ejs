@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Pet Shop</title>
+</head>
+<body>
+    <h2>Add a new pet</h2>
+    <form action="/addItem" method="POST" id="createForm" enctype="multipart/form-data">
+        <div>
+            <label for="name">Pet Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="breed">Breed</label>
+            <input type="text" id="breed" name="breed" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="0" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="price">Price ($)</label>
+            <input type="number" id="price" name="price" min="0" step="0.01" required>
+        </div>
+        <br>
+
+        <div>
+            <label>Pet Image</label>
+            <div>
+                <input type="radio" id="imageUrl" name="imageType" value="url" checked>
+                <label for="imageUrl">Use URL for image</label>
+            </div>
+            <div>
+                <input type="radio" id="imageUpload" name="imageType" value="upload">
+                <label for="imageUpload">Upload Image File</label>
+            </div>
+                
+            <div id="urlImage">
+                <input type="url" id="imageUrlField" name="imageUrl" placeholder="Enter image URL" required>
+            </div>
+                
+            <div id="fileInput" style="display: none;">
+                <input type="file" id="imageFile" name="imageFile" accept="image/*">
+                <small>Upload image from computer (JPG, PNG, GIF)</small>
+            </div>
+        </div>
+        <br>
+
+        <button type="submit">Add Pet</button>
+    </form>
+
+    <script>
+        // Get all the necessary elements
+        const imageUrlRadio = document.getElementById('imageUrl');
+        const imageUploadRadio = document.getElementById('imageUpload');
+        const urlImage = document.getElementById('urlImage');
+        const fileInput = document.getElementById('fileInput');
+        const imageUrlField = document.getElementById('imageUrlField');
+        const imageFileField = document.getElementById('imageFile');
+
+        function toggleImageInput() {
+            if (imageUrlRadio.checked) {
+                // Show URL input, hide file input
+                urlImage.style.display = 'block';
+                fileInput.style.display = 'none';
+                imageUrlField.required = true;
+                imageFileField.required = false;
+            } else {
+                // Hide URL input, show file input
+                urlImage.style.display = 'none';
+                fileInput.style.display = 'block';
+                imageUrlField.required = false;
+                imageFileField.required = true;
+            }
+        }
+
+        // Add event listeners to radio buttons
+        imageUrlRadio.addEventListener('change', toggleImageInput);
+        imageUploadRadio.addEventListener('change', toggleImageInput);
+
+        // Initialize the form on page load
+        toggleImageInput();
+    </script>
+</body>
+</html>
