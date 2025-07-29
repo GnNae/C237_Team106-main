@@ -371,5 +371,39 @@ app.post('/addItem', (req, res) => {
   });
 });
 
+// Route to show feedback form
+app.get('/feedback', checkAuthenticated, (req, res) => {
+    res.render('feedback', {
+        messages: req.flash('success'),
+        user: req.session.user
+    });
+});
+
+
+// Route to handle feedback submission
+app.post('/feedback', checkAuthenticated, (req, res) => {
+    const username = req.session.user.username;
+    const comment = req.body.comment;
+
+    const sql = 'INSERT INTO feedback (username, feedback_comment) VALUES (?, ?)';
+    connection.query(sql, [username, comment], (error, results) => {
+        if (error) {
+            console.error('Error saving feedback:', error);
+            return res.status(500).send('Error saving feedback');
+        }
+
+        req.flash('success', 'Thank you for your feedback!');
+        res.redirect('feedback');
+    });
+});
+
+app.get('/feedbackS', (req, res)=>{
+    const sql = 'SELECT * FROM feedback';
+    connection.query(sql, (err, results)=>{
+        if (err) throw err;
+        res.render('feedbackview', {feedback:results});
+    });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
