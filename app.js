@@ -433,7 +433,7 @@ app.post('/add-to-cart', (req, res) => {
     });
   }
 
-  res.redirect('/cart'); // Redirect to cart view (you’ll create this next)
+  res.redirect('/cart'); // Redirect to cart view
 });
 
 // Cart view route

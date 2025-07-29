@@ -22,27 +22,7 @@
       $<%= cart.reduce((total, item) => total + (item.price * item.quantity), 0) %>
     </p>
   <% } %>
-    <form action="/update-cart" method="POST">
-              <input type="hidden" name="pet_id" value="<%= pets[i].id %>">
-              <input type="number" name="quantity" value="1" min="1" max="<%= pets[i].quantity %>"> <!-- Added input for quantity -->
-              <button type="submit">Add to Cart</button>
-            </form>
-            </td>
-            <td>
-              <form action="/delete-pet" method="POST">
-                <input type="hidden" name="pet_id" value="<%= pets[i].id %>">
-                <button type="submit">Delete</button>
-              </form>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <script src="/js/bootstrap.bundle.min.js"></script>
-
-    <form action="/checkout" method="POST">
-        <button type="submit">Checkout</button>
+   
   <a href="/">Back to Home</a>
 </body>
 </html>
