@@ -6,17 +6,20 @@
     body {
       font-size: 20px;
       font-family: Arial, sans-serif;
-      margin: 0; 
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 20px;
-      text-align: center;
+    .dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    .light-mode {
+      background-color: white;
+      color: black;
     }
 
     h2, h3 {
@@ -29,72 +32,131 @@
 
     input, button {
       font-size: 18px;
+      padding: 8px;
+      margin: 5px;
     }
 
-    form {
-      display: flex;
-      gap: 10px;
-      justify-content: center;    
-      margin-bottom: 20px;
+    .dark-mode input, .dark-mode button {
+      background-color: #333;
+      color: #f0f0f0;
+      border: 1px solid #888;
     }
 
-    .container img {
-      display: block;
-      margin: 10px auto;
-      max-width: 50%;
+    .light-mode input, .light-mode button {
+      background-color: white;
+      color: black;
+      border: 1px solid #ccc;
+    }
+
+    img {
+      max-width: 100%;
       height: auto;
     }
 
-    .back-button {
-      font-size: 18px;
-      padding: 8px 15px;
-      background: #007bff;
-      color: white;
-      border-radius: 4px;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 20px;
+    .container {
+      margin: 30px auto;
+      width: 80%;
+      text-align: left;
     }
 
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 10px 15px;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+
+    .toggle-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 16px;
+      padding: 10px 15px;
+      border-radius: 5px;
+      background-color: #444;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .toggle-button:hover {
+      background-color: #666;
+    }
   </style>
 </head>
 <body>
 
-  <div class="wrapper">
+  <!-- Back Button -->
+  <a class="back-button" href="/">← Back</a>
 
-    <h2>Search Pets</h2>
+  <!-- Toggle Dark Mode Button -->
+  <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
-    <form action="/search" method="POST">
-      <input type="text" name="query" placeholder="Enter Pet name" required />
-      <button type="submit">Search</button>
-    </form>
+  <h2>Search Pets</h2>
 
-    <h3>Results:</h3>
+  <form action="/search" method="POST">
+    <input type="text" name="query" placeholder="Enter Pet name" required />
+    <button type="submit">Search</button>
+  </form>
 
-    <% if (results.length > 0) { %>
-      <div class="container">
-        <br>
-        <div><h2>Pet Details:</h2></div>
-        <br>
+  <h3>Results:</h3>
 
-        <% results.forEach((result, index) => { %>
-          <div>
-            <h2><b>No. <%= index + 1 %> Match Result</b></h2>
-            <p><b>Pet Name:</b><br> <%= result.name %></p>
-            <p><b>Price:</b><br> $<%= result.price %></p>
-            <p><b>Pet Image:</b><br> <img src="<%= result.image %>" width="1000px"></p>
-            <p><b>Breed:</b><br> <%= result.breed %></p>
-            <hr>
-          </div>
-        <% }); %>
-      </div>
-    <% } else { %>
-      <p>No Pet Name found.</p>
-    <% } %>
+  <% if (results.length > 0) { %>
 
-    <a href="/purchase" class="back-button">Back</a>
+    <div class="container">
+      <br>
+      <div class="text-center"><h2>Pet Details:</h2></div>
+      <br>
 
-  </div>
+      <% results.forEach((result, index) => { %>
+        <div>
+          <h2><b>No. <%= index + 1 %> Match Result</b></h2>
+          <p><b>Pet Name:</b><br> <%= result.name %></p>
+          <p><b>Price:</b><br> $<%= result.price %></p>
+          <p><b>Pet Image:</b><br> <img src="<%= result.image %>" width="50%"></p>
+          <p><b>Breed:</b><br> <%= result.breed %></p>
+          <hr>
+        </div>
+      <% }); %>
+
+    </div>
+
+  <% } else { %>
+    <p>No Pet Name found.</p>
+    <a href="/">Back</a>
+  <% } %>
+
+  <script>
+    function toggleDarkMode() {
+      const body = document.body;
+
+      if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");
+        localStorage.setItem("theme", "light");
+      } else {
+        body.classList.remove("light-mode");
+        body.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark");
+      }
+    }
+
+    // Load saved theme on page load
+    window.onload = () => {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.body.classList.add(savedTheme + "-mode");
+    };
+  </script>
 
 </body>
 </html>
