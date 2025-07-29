@@ -2,7 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
 }
-
+/*
 /* nav bar*/
 nav ul {
     background-color: black;
@@ -24,7 +24,7 @@ nav ul li a {
     padding: 5px 10px;
 
 }
-
+*/
 /* background color */
 main{
     background-color: #7dd8ea;
