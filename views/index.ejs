@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,49 +8,55 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <title>The Pet Shop</title>
 </head>
-<body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">The Pet Shop</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <% if (!user) {%>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
-                </li> 
-                <li class="nav-item">
-                    <a class="nav-link" href="/Login">Login</a>
-                </li> 
-            <% } else { %>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Logout">Logout</a>
-                </li> 
-            <% } %>
-          </ul>
-        </div>
-      </div>
-    </nav>
 
-    <div class="container">
-        <p style="text-align: center;">
-            <% if (user) {%>
-              <% if (user.role === "admin") { %>
-                <br>
-                Back to <a href="/managePets">Manage Pets!</a>
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">The Pet Shop</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <% if (!user) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Login">Login</a>
+            </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/feedback">Feedback</a> <!-- <-- Add this -->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Logout">Logout</a>
+              </li>
+              <% } %>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <p style="text-align: center;">
+      <% if (user) {%>
+        <% if (user.role==="admin" ) { %>
+          <br>
+          Back to <a href="/managePets">Manage Pets!</a>
+          <% } else { %>
+            <br>
+            Continue <a href="/buyPets">Buy Pets!</a>
+            <% } %>
               <% } else { %>
                 <br>
-                Continue <a href="/buyPets">Buy Pets!</a>
+                Welcome to My Pet Shop! <br>
+                Please <a href="/login">login</a> to continue...
                 <% } %>
-            <% } else { %>
-            <br>
-            Welcome to My Pet Shop! <br>
-            Please <a href = "/login" >login</a> to continue...
-            <% } %>
-        </p>
-        
-    </div>
+    </p>
+
+  </div>
 </body>
+
 </html>
