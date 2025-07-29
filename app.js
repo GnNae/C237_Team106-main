@@ -23,7 +23,6 @@ const connection = mysql.createConnection({
     user: 'root',
     password: 'Republic_C207',
     database: 'pet', // Database name
-    port: 3306
 });
 
 connection.connect((err) => {
