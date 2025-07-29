@@ -410,5 +410,42 @@ app.get('/petGuide', (req, res) => {
     res.render('petguide', { user: req.session.user });
 });
 
+// Add to cart functionality
+// This route will handle adding items to the cart
+app.post('/add-to-cart', (req, res) => {
+  const { pet_id, name, price } = req.body;
+
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
+  // Check if pet already exists in cart
+  const existingItem = req.session.cart.find(item => item.pet_id == pet_id);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    req.session.cart.push({
+      pet_id,
+      name,
+      price,
+      quantity: 1
+    });
+  }
+
+  res.redirect('/cart'); // Redirect to cart view (you’ll create this next)
+});
+
+// Cart view route
+app.get('/cart', (req, res) => {
+  const cart = req.session.cart || [];
+  res.render('cart', { cart });
+});
+
+
+
+
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
