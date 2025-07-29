@@ -1,29 +1,9 @@
 {
-  "name": "c237_team106-1",
-  "version": "1.0.0",
-  "description": "Update.ejs - (80% done) need some testing.\r Update for the js need troubleshooting and testing.",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LimKaiXin/C237_Team106.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/LimKaiXin/C237_Team106/issues"
-  },
-  "homepage": "https://github.com/LimKaiXin/C237_Team106#readme",
   "dependencies": {
     "connect-flash": "^0.1.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
-    "fastest-levenshtein": "^1.0.16",
     "multer": "^2.0.2",
     "mysql2": "^3.14.2"
   }
